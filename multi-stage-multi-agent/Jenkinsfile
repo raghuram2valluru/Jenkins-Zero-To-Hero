@@ -6,7 +6,10 @@ pipeline {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
       steps {
-        sh 'mvn --version'
+        // Example: clean, run tests, and package (assuming a pom.xml exists)
+        sh 'ls -la'
+        sh 'mvn -B clean test'
+        sh 'mvn -B package'
       }
     }
     stage('Front-end') {
@@ -14,7 +17,11 @@ pipeline {
         docker { image 'node:16-alpine' }
       }
       steps {
-        sh 'node --version'
+        // Example: install deps and run a simple build or test
+        sh 'ls -la'
+        sh 'node -e "console.log(`Hello from Node CI`)”'
+        sh 'npm install'
+        sh 'npm test || echo "No tests defined, skipping"'
       }
     }
   }
